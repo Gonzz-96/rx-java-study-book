@@ -1,5 +1,6 @@
 package chapter.one
 
+import chapter.utils.addSpace
 import io.reactivex.Observable
 
 class ConcurrencyAndParallelism {
@@ -86,15 +87,4 @@ class ConcurrencyAndParallelism {
 
         addSpace()
     }
-
-    /**
-     * Method used only for give some format to output
-     */
-    private fun addSpace() {
-        Thread.sleep(1000)
-
-        // Some stylish XD
-        println()
-    }
-
 }

@@ -17,4 +17,9 @@ fun main(args: Array<String>) {
 
     c.noConcurrencyInObservable()
     c.asynchronousObservables()
+
+    // Lazy versus Eager section
+    val l = LazyVersusEager()
+
+    l.observableIsLazy()
 }
