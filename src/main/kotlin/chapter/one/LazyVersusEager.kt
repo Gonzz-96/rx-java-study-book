@@ -20,5 +20,7 @@ class LazyVersusEager {
 
         o.subscribe{ println("\nSubscriber 1: $it")}
         o.subscribe{ println("Subscriber 2: $it")}
+
+        addSpace()
     }
 }

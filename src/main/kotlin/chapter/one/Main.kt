@@ -22,4 +22,9 @@ fun main(args: Array<String>) {
     val l = LazyVersusEager()
 
     l.observableIsLazy()
+
+    // Single
+    val s = SingleClass()
+
+    s.single()
 }
