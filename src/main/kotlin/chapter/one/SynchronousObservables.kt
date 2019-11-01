@@ -47,7 +47,7 @@ class SynchronousObservables {
      * RxJava uses operator to manipulate, combine and transform
      * data. Some actions are: 'map', 'filter', 'take', 'flatMap',
      * and 'groupBy'. These operators are run synchronously because
-     * of performance resaons.
+     * of performance reasons.
      */
     fun synchronousComputation() {
 

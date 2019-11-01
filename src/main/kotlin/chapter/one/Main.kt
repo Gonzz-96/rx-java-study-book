@@ -5,11 +5,16 @@ package chapter.one
  */
 fun main(args: Array<String>) {
 
+    // Async versus Syncs section
     val o = SynchronousObservables()
 
-    // Methods found in chapter I
     o.synchronousObservable()
     o.inMemoryData()
     o.synchronousComputation()
 
+    // Concurrency and Parallelism section
+    val c = ConcurrencyAndParallelism()
+
+    c.noConcurrencyInObservable()
+    c.asynchronousObservables()
 }
