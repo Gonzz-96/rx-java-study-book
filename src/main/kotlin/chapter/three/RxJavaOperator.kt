@@ -144,13 +144,28 @@ class RxJavaOperator {
     /**
      * concatMap(): is like flatMap, but all the observables
      * are subscribed sequentially: there is only one observable
-     * running at a time
+     * running at a time. There is no concurrency
      */
     fun `real case of concatMap`() {
 
         Observable
             .just(DayOfWeek.MONDAY, DayOfWeek.FRIDAY)
             .concatMap(::getStreamOfDay)
+            .subscribe(::println)
+
+        Thread.sleep(9_000L)
+        addSpace()
+    }
+
+    /**
+     * There is an overloaded version of flatMap()
+     * that controls the total numbers of concurrent subscriptions to inner streams
+     */
+    fun `controlling the concurrency of flatMap`() {
+
+        Observable
+            .just(DayOfWeek.MONDAY, DayOfWeek.FRIDAY)
+            .flatMap(::getStreamOfDay, 2)
             .subscribe(::println)
 
         Thread.sleep(9_000L)
