@@ -10,4 +10,8 @@ fun main() {
     r.`flatMap plus timer =D`()
     r.`flatMap with delay`()
     r.`real case of flat map`()
+
+    readLine()
+
+    r.`real case of concatMap`()
 }

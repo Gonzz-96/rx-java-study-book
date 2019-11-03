@@ -101,7 +101,7 @@ class RxJavaOperator {
             }
 
         // Every subscription will start at the same time
-        Thread.sleep(10_000L)
+        Thread.sleep(11_000L)
     }
 
 
@@ -130,7 +130,7 @@ class RxJavaOperator {
                     .map { i -> "Sunday: $i" }
             DayOfWeek.FRIDAY ->
                 Observable
-                    .interval(10, TimeUnit.SECONDS)
+                    .interval(3, TimeUnit.SECONDS)
                     .take(5)
                     .map { i -> "Friday: $i" }
         }
@@ -138,5 +138,22 @@ class RxJavaOperator {
     enum class DayOfWeek {
         MONDAY,
         FRIDAY
+    }
+
+
+    /**
+     * concatMap(): is like flatMap, but all the observables
+     * are subscribed sequentially: there is only one observable
+     * running at a time
+     */
+    fun `real case of concatMap`() {
+
+        Observable
+            .just(DayOfWeek.MONDAY, DayOfWeek.FRIDAY)
+            .concatMap(::getStreamOfDay)
+            .subscribe(::println)
+
+        Thread.sleep(9_000L)
+        addSpace()
     }
 }
