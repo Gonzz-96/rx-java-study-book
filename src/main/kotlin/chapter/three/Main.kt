@@ -6,4 +6,6 @@ fun main() {
 
     r.`filter operator`()
     r.`map operator`()
+    r.`flatMap operator`()
+    r.`flatMap plus timer =D`()
 }

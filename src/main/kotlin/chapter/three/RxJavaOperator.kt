@@ -2,6 +2,8 @@ package chapter.three
 
 import chapter.utils.addSpace
 import io.reactivex.Observable
+import io.reactivex.Observable.*
+import java.util.concurrent.TimeUnit
 
 class RxJavaOperator {
 
@@ -61,4 +63,30 @@ class RxJavaOperator {
         addSpace()
     }
 
+    /**
+     * flatMap(): this take an upstream and, with every
+     * emitted element, will create an observable.
+     */
+    fun `flatMap operator`() {
+
+        val flatMap = originalObs.flatMap<String> {
+            just("Flatten observable: $it")
+        }
+
+        flatMap.subscribe {
+            println(it)
+        }
+    }
+
+    fun `flatMap plus timer =D`() {
+
+        originalObs
+            .flatMap {
+                timer(it.toLong(), TimeUnit.MILLISECONDS)
+            }.subscribe {
+                print("\nTimer: $it")
+            }
+
+        Thread.sleep(1000L)
+    }
 }
