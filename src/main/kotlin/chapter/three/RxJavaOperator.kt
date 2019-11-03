@@ -87,6 +87,20 @@ class RxJavaOperator {
                 print("\nTimer: $it")
             }
 
-        Thread.sleep(1000L)
+        addSpace()
+    }
+
+
+    fun `flatMap with delay`() {
+
+        originalObs
+            .flatMap {
+                just(it).delay(it.toLong(), TimeUnit.SECONDS)
+            }.subscribe {
+                print("\nTimer: $it")
+            }
+
+        // Every subscription will start at the same time
+        Thread.sleep(6_000L)
     }
 }
