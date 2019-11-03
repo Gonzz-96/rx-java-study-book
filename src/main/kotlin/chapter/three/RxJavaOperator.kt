@@ -13,8 +13,12 @@ class RxJavaOperator {
      *  be modified by the operators. It rests the same
      *  throughout the execution
      */
-    private val originalObs = Observable
-        .range(1, 10)
+    private val originalObs = Observable.range(1, 10)
+
+    /**
+     * Another observable
+     */
+    private val anotherObs = Observable.range(10, 10)
 
     /**
      * filter(): only lets pass the items
@@ -170,5 +174,24 @@ class RxJavaOperator {
 
         Thread.sleep(9_000L)
         addSpace()
+    }
+
+    /**
+     * merge(): this operator will transform a set of observable streams
+     * into one only stream. It doesn't matter how long an observable
+     * takes to emit its values, the observables will be subscribed
+     * at the same time (concurrency)
+     */
+    fun `using merge`() {
+
+        val newOriginalObs = originalObs.delay(1, TimeUnit.SECONDS)
+        val newOtherObs = anotherObs.delay(2, TimeUnit.SECONDS)
+
+        Observable.merge(newOriginalObs, newOtherObs).subscribe {
+            println("Merged observable: $it")
+        }
+
+        addSpace()
+        Thread.sleep(10_000L)
     }
 }

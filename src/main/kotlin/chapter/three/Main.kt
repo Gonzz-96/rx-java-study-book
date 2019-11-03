@@ -14,4 +14,5 @@ fun main() {
     readLine()
 
     r.`real case of concatMap`()
+    r.`using merge`()
 }
