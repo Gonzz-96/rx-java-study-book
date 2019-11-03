@@ -101,6 +101,42 @@ class RxJavaOperator {
             }
 
         // Every subscription will start at the same time
-        Thread.sleep(6_000L)
+        Thread.sleep(10_000L)
+    }
+
+
+    /**
+     * Example: for every day of the week, the load
+     * time can be different. It may vary between 1 sec
+     * and 10 seconds.
+     */
+    fun `real case of flat map`() {
+
+        Observable
+            .just(DayOfWeek.MONDAY, DayOfWeek.FRIDAY)
+            .flatMap(::getStreamOfDay)
+            .subscribe(::println)
+
+        Thread.sleep(9_000L)
+        addSpace()
+    }
+
+    fun getStreamOfDay(today: DayOfWeek): Observable<String> =
+        when(today) {
+            DayOfWeek.MONDAY ->
+                Observable
+                    .interval(1, TimeUnit.SECONDS)
+                    .take(5)
+                    .map { i -> "Sunday: $i" }
+            DayOfWeek.FRIDAY ->
+                Observable
+                    .interval(10, TimeUnit.SECONDS)
+                    .take(5)
+                    .map { i -> "Friday: $i" }
+        }
+
+    enum class DayOfWeek {
+        MONDAY,
+        FRIDAY
     }
 }

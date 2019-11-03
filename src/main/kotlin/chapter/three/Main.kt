@@ -9,4 +9,5 @@ fun main() {
     r.`flatMap operator`()
     r.`flatMap plus timer =D`()
     r.`flatMap with delay`()
+    r.`real case of flat map`()
 }
