@@ -8,4 +8,6 @@ fun main() {
     o.justOperator()
     o.fromOperator()
     o.rangeOperator()
+    o.conetableObservables()
+    o.`using publish-refCount duet`()
 }

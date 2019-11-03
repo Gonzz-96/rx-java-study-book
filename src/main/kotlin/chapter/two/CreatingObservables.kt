@@ -56,7 +56,7 @@ class CreatingObservables {
      */
 
     /**
-     * Observable.empty()
+     * Observable.never()
      * Never emits notifications, neither values nor completion or error.
      * This stream is useful for testing purposes.
      */
@@ -67,4 +67,52 @@ class CreatingObservables {
      * subscriber. No other values are emmitted accodring to contract
      * onComplete() cannot occur as well.
      */
+
+
+    /**
+     * ConnectableObservable can be subscribed by more than one
+     * subscriber. It'll start to send notifications when 'connect()'
+     * method is called.
+     */
+    fun conetableObservables() {
+
+        println("\n\nCreating observable")
+        val o = Observable.just("one", "two", "three").publish()
+
+        o.subscribe {
+            println("Subcriber 1: $it")
+        }
+
+        o.subscribe {
+            println("Subcriber 2: $it")
+        }
+
+        o.subscribe {
+            println("Subcriber 3: $it")
+        }
+
+        println("Connecting!")
+        o.connect()
+    }
+
+    /**
+     *
+     */
+    fun `using publish-refCount duet`() {
+        println("\nCreating observable")
+        val o = Observable.just("one", "two", "three").publish().refCount(1)
+
+        o.subscribe {
+            println("Subcriber 1: $it")
+        }
+
+        o.subscribe {
+            println("Subcriber 2: $it")
+        }
+
+        o.subscribe {
+            println("Subcriber 3: $it")
+        }
+    }
+
 }
