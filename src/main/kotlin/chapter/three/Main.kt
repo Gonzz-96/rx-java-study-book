@@ -4,17 +4,19 @@ fun main() {
 
     val r = RxJavaOperator()
 
-    r.`filter operator`()
-    r.`map operator`()
-    r.`flatMap operator`()
-    r.`flatMap plus timer =D`()
-    r.`flatMap with delay`()
-    r.`real case of flat map`()
-
-    //readLine()
-
-    //r.`real case of concatMap`()
-    //r.`using merge`()
-    r.`using zip and zipWith`()
-    r.`chess example`()
+//    r.filterOperator()
+//    r.mapOperator()
+//    r.flatMapOperator()
+//    r.flatMapPlusTimer()
+//    r.flatMapWithDelay()
+//    r.realCaseOfFlatMap()
+//
+//    //readLine()
+//
+//    //r.realCaseOfConcatMap()
+//    //r.usingMerge()
+//    r.usingZipAndZipWith()
+//    r.chessExample()
+//    r.synchronousObservables()
+    r.asynchronousObservables()
 }

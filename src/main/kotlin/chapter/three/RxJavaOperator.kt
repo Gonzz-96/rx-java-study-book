@@ -4,6 +4,7 @@ import chapter.utils.addSpace
 import io.reactivex.Observable
 import io.reactivex.Observable.*
 import io.reactivex.functions.BiFunction
+import io.reactivex.schedulers.Timed
 import java.util.concurrent.TimeUnit
 
 class RxJavaOperator {
@@ -25,7 +26,7 @@ class RxJavaOperator {
      * filter(): only lets pass the items
      * that satisfy the given predicate
      */
-    fun `filter operator`() {
+    fun filterOperator() {
 
         // Only even numbers
         val evenObs = originalObs.filter { it % 2 == 0 }
@@ -49,7 +50,7 @@ class RxJavaOperator {
      * map(): applies a transformation to each and
      * every value from upstream.
      */
-    fun `map operator`() {
+    fun mapOperator() {
 
         // Squared numbers
         val squaredNums = originalObs.map { it * it }
@@ -72,7 +73,7 @@ class RxJavaOperator {
      * flatMap(): this take an upstream and, with every
      * emitted element, will create an observable.
      */
-    fun `flatMap operator`() {
+    fun flatMapOperator() {
 
         val flatMap = originalObs.flatMap<String> {
             just("Flatten observable: $it")
@@ -83,7 +84,7 @@ class RxJavaOperator {
         }
     }
 
-    fun `flatMap plus timer =D`() {
+    fun flatMapPlusTimer() {
 
         originalObs
             .flatMap {
@@ -96,7 +97,7 @@ class RxJavaOperator {
     }
 
 
-    fun `flatMap with delay`() {
+    fun flatMapWithDelay() {
 
         originalObs
             .flatMap {
@@ -115,7 +116,7 @@ class RxJavaOperator {
      * time can be different. It may vary between 1 sec
      * and 10 seconds.
      */
-    fun `real case of flat map`() {
+    fun realCaseOfFlatMap() {
 
         Observable
             .just(DayOfWeek.MONDAY, DayOfWeek.FRIDAY)
@@ -151,7 +152,7 @@ class RxJavaOperator {
      * are subscribed sequentially: there is only one observable
      * running at a time. There is no concurrency
      */
-    fun `real case of concatMap`() {
+    fun realCaseOfConcatMap() {
 
         Observable
             .just(DayOfWeek.MONDAY, DayOfWeek.FRIDAY)
@@ -166,7 +167,7 @@ class RxJavaOperator {
      * There is an overloaded version of flatMap()
      * that controls the total numbers of concurrent subscriptions to inner streams
      */
-    fun `controlling the concurrency of flatMap`() {
+    fun controllingTheConcurrencyOfFlatMap() {
 
         Observable
             .just(DayOfWeek.MONDAY, DayOfWeek.FRIDAY)
@@ -183,7 +184,7 @@ class RxJavaOperator {
      * takes to emit its values, the observables will be subscribed
      * at the same time (concurrency)
      */
-    fun `using merge`() {
+    fun usingMerge() {
 
         val newOriginalObs = originalObs.delay(1, TimeUnit.SECONDS)
         val newOtherObs = anotherObs.delay(2, TimeUnit.SECONDS)
@@ -199,7 +200,7 @@ class RxJavaOperator {
     /**
      * zip(): the streams in here will be combined
      */
-    fun `using zip and zipWith`() {
+    fun usingZipAndZipWith() {
 
         Observable.zip(originalObs, anotherObs, BiFunction { x: Int, y: Int ->
             println("Zip! $x : $y")
@@ -213,7 +214,7 @@ class RxJavaOperator {
     /**
      * CHess example
      */
-    fun `chess example`() {
+    fun chessExample() {
 
         val oneToEight = range(1, 8)
         val ranks = oneToEight.map(Any::toString)
@@ -232,5 +233,47 @@ class RxJavaOperator {
         squares.subscribe {
             println("Chess result: $it")
         }
+    }
+
+
+    /**
+     * It's bold to suppose that two Observables will prodice
+     * events with the same frequency.
+     */
+    fun synchronousObservables() {
+
+        val red = Observable.interval(10, TimeUnit.MILLISECONDS)
+        val green = Observable.interval(10, TimeUnit.MILLISECONDS)
+
+        Observable.zip(
+            red.timestamp(),
+            green.timestamp(),
+            BiFunction { x: Timed<Long>, y: Timed<Long> ->
+                x.time() - y.time()
+            }
+        ).forEach(::println)
+
+        Thread.sleep(10_000L)
+    }
+
+
+    /**
+     * The difference between timers is bigger. This is error prone
+     * and there can be some memory leaks.
+     */
+    fun asynchronousObservables() {
+
+        val red = Observable.interval(10, TimeUnit.MILLISECONDS)
+        val green = Observable.interval(11, TimeUnit.MILLISECONDS)
+
+        Observable.zip(
+            red.timestamp(),
+            green.timestamp(),
+            BiFunction { x: Timed<Long>, y: Timed<Long> ->
+                x.time() - y.time()
+            }
+        ).forEach(::println)
+
+        Thread.sleep(10_000L)
     }
 }
