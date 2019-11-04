@@ -18,5 +18,6 @@ fun main() {
 //    r.usingZipAndZipWith()
 //    r.chessExample()
 //    r.synchronousObservables()
-    r.asynchronousObservables()
+//    r.asynchronousObservables()
+    r.combineLatestOperator()
 }
