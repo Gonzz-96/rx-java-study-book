@@ -295,4 +295,42 @@ class RxJavaOperator {
         Thread.sleep(10_000L)
     }
 
+    /**
+     * withLatestFrom(): this is like combineLatest() but with a slight
+     * difference: combineLatest will trigger every time something appears
+     * in ANY stream. On the other side, withLatestFrom will trigger an event
+     * every time something appears in a SPECIFIED stream.
+     */
+    fun withLatestFromOperator() {
+
+        val fast = interval(10, TimeUnit.MILLISECONDS).map { "F$it" }
+        val slow = interval(17, TimeUnit.MILLISECONDS).map { "S$it" }
+
+        slow
+            .withLatestFrom(fast, BiFunction { s: String, f: String -> "$s : $f"  })
+            .forEach(::println)
+
+        Thread.sleep(10_000L)
+    }
+
+    /**
+     * startWith(): this provides some dummy events to one stream
+     *
+     */
+    fun startWithOperator() {
+
+        val fast = interval(10, TimeUnit.MILLISECONDS)
+            .map { "F$it" }
+            .delay(100, TimeUnit.MILLISECONDS)
+            .startWith("FX")
+
+        val slow = interval(17, TimeUnit.MILLISECONDS)
+            .map { "S$it" }
+
+        slow.withLatestFrom(fast, BiFunction { s: String, f: String ->
+            "$s : $f"
+        }).forEach(::println)
+
+        Thread.sleep(10_000L)
+    }
 }

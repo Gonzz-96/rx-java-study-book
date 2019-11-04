@@ -19,5 +19,7 @@ fun main() {
 //    r.chessExample()
 //    r.synchronousObservables()
 //    r.asynchronousObservables()
-    r.combineLatestOperator()
+//    r.combineLatestOperator()
+//    r.withLatestFromOperator()
+    r.startWithOperator()
 }
