@@ -11,8 +11,9 @@ fun main() {
     r.`flatMap with delay`()
     r.`real case of flat map`()
 
-    readLine()
+    //readLine()
 
-    r.`real case of concatMap`()
-    r.`using merge`()
+    //r.`real case of concatMap`()
+    //r.`using merge`()
+    r.`using zip and zipWith`()
 }

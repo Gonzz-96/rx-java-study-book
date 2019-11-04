@@ -3,6 +3,7 @@ package chapter.three
 import chapter.utils.addSpace
 import io.reactivex.Observable
 import io.reactivex.Observable.*
+import io.reactivex.functions.BiFunction
 import java.util.concurrent.TimeUnit
 
 class RxJavaOperator {
@@ -193,5 +194,19 @@ class RxJavaOperator {
 
         addSpace()
         Thread.sleep(10_000L)
+    }
+
+    /**
+     * zip(): the streams in here will be combined
+     */
+    fun `using zip and zipWith`() {
+
+        Observable.zip(originalObs, anotherObs, BiFunction { x: Int, y: Int ->
+            println("Zip! $x : $y")
+        }).subscribe()
+
+        originalObs.zipWith(anotherObs, BiFunction { x: Int, y: Int ->
+            println("Zip! $x : $y")
+        }).subscribe()
     }
 }
