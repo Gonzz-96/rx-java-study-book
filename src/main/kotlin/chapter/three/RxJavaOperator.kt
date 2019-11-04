@@ -332,5 +332,10 @@ class RxJavaOperator {
         }).forEach(::println)
 
         Thread.sleep(10_000L)
+
+        Observable
+            .just(1, 2)
+            .startWith(0)
+            .subscribe(::println)
     }
 }
