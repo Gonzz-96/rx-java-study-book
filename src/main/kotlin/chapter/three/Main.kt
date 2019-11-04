@@ -16,4 +16,5 @@ fun main() {
     //r.`real case of concatMap`()
     //r.`using merge`()
     r.`using zip and zipWith`()
+    r.`chess example`()
 }

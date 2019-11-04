@@ -209,4 +209,28 @@ class RxJavaOperator {
             println("Zip! $x : $y")
         }).subscribe()
     }
+
+    /**
+     * CHess example
+     */
+    fun `chess example`() {
+
+        val oneToEight = range(1, 8)
+        val ranks = oneToEight.map(Any::toString)
+        val files = oneToEight
+            .map { x -> 'a' + x - 1}
+            .map { ascii -> ascii.toInt().toChar() }
+            .map { ch -> ch.toString() }
+
+        val squares = files
+            .flatMap { file ->
+                ranks.map { rank ->
+                    file + rank
+                }
+            }
+
+        squares.subscribe {
+            println("Chess result: $it")
+        }
+    }
 }
