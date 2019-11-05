@@ -21,5 +21,6 @@ fun main() {
 //    r.asynchronousObservables()
 //    r.combineLatestOperator()
 //    r.withLatestFromOperator()
-    r.startWithOperator()
+//    r.startWithOperator()
+    r.ambOperator()
 }

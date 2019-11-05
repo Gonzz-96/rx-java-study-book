@@ -338,4 +338,29 @@ class RxJavaOperator {
             .startWith(0)
             .subscribe(::println)
     }
+
+
+    /**
+     * amb(): this operator subscribes to all upstream Observables it controls
+     * and waits for the very first item emitted. When one of the Observables emits
+     * the first event, amb() discards all other streams.
+     */
+    fun ambOperator() {
+
+        Observable.ambArray(
+            stream(100L, 17L, "F"),
+            stream(200L, 10L, "S")
+        ).subscribe(::println)
+
+        Thread.sleep(10_000L)
+    }
+
+
+
+    private fun stream(initialDelay: Long, interval: Long, name: String) : Observable<String> =
+        Observable.interval(initialDelay, interval, TimeUnit.MILLISECONDS)
+            .map { x -> name + x.toString() }
+            .doOnSubscribe { println("Subscribed to $name") }
+            .doOnTerminate { println("Unsubscribe from $name") }
+
 }
