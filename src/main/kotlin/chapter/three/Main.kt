@@ -23,5 +23,6 @@ fun main() {
 //    r.withLatestFromOperator()
 //    r.startWithOperator()
 //    r.ambOperator()
-    r.scanOperator()
+//    r.scanOperator()
+    r.collectOperator()
 }

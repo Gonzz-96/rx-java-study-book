@@ -5,7 +5,6 @@ import io.reactivex.Observable
 import io.reactivex.Observable.*
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Timed
-import java.math.BigInteger
 import java.util.concurrent.TimeUnit
 
 class RxJavaOperator {
@@ -397,5 +396,46 @@ class RxJavaOperator {
                 accumulator + actual
             }
             .subscribe(::println)
+
+        // Overloaded version includes a seed operator.
+        Observable
+            .range(1, 10)
+            .reduce(100) { accumulator, actual ->
+                accumulator + actual
+            }
+            .subscribe { x ->
+                println("$x ----*")
+            }
+    }
+
+    /**
+     * collect(): It works almost exactly like reduce() but assumes that we use
+     * the same mutable accumulator for every event as opposed to returning
+     * a new immutable accumulator every time
+     */
+    fun collectOperator() {
+
+        Observable
+            .range(10, 20)
+            .reduce(mutableListOf<Int>()) { list, int ->
+                list.add(int)
+                list
+            }
+            .subscribe { list ->
+                println("Reduce: $list")
+            }
+
+        // For some weird reason, collect is more verbose than reduce (at least in kotlin...)
+        Observable
+            .range(20, 20)
+            .collect({
+                mutableListOf<Int>()
+            }, { list, int ->
+                list.add(int)
+            })
+            .subscribe { list ->
+                println("Collect: $list")
+            }
+
     }
 }
