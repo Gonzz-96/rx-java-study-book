@@ -384,4 +384,18 @@ class RxJavaOperator {
             }
             .subscribe(::println)
     }
+
+    /**
+     * reduce(): this operator will accumulate all the intermediate
+     * values in the stream, but will only emit the final result.
+     */
+    fun reduceOperator() {
+
+        Observable
+            .range(1, 10)
+            .reduce { accumulator, actual ->
+                accumulator + actual
+            }
+            .subscribe(::println)
+    }
 }
