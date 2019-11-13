@@ -5,6 +5,7 @@ import io.reactivex.Observable
 import io.reactivex.Observable.*
 import io.reactivex.functions.BiFunction
 import io.reactivex.schedulers.Timed
+import java.math.BigInteger
 import java.util.concurrent.TimeUnit
 
 class RxJavaOperator {
@@ -363,4 +364,24 @@ class RxJavaOperator {
             .doOnSubscribe { println("Subscribed to $name") }
             .doOnTerminate { println("Unsubscribe from $name") }
 
+    /**
+     * scan(): scan will take as parameter the last generated value of the stream
+     * (the accumulator) and the current value.
+     */
+    fun scanOperator() {
+
+        Observable
+            .range(2, 10)
+            .scan(1) { accumulator, actual ->
+                accumulator * actual
+            }
+            .subscribe(::println)
+
+        Observable
+            .range(1, 10)
+            .scan(1) { accumulator, actual ->
+                accumulator + actual
+            }
+            .subscribe(::println)
+    }
 }

@@ -22,5 +22,6 @@ fun main() {
 //    r.combineLatestOperator()
 //    r.withLatestFromOperator()
 //    r.startWithOperator()
-    r.ambOperator()
+//    r.ambOperator()
+    r.scanOperator()
 }
